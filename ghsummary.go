@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mstarkman/ghsummary.go/github"
+	"github.com/mstarkman/ghsummary.go/cli"
+	"github.com/mstarkman/ghsummary.go/web"
 )
 
 var githubUsername = flag.String("user", defaultUserName, "the GitHub username to generate the summary")
 var showHelp = flag.Bool("help", false, "shows the help")
+var runWeb = flag.Bool("web", false, "runs the web server")
 
 const defaultUserName = ""
 
@@ -36,11 +38,9 @@ func main() {
 		os.Exit(0)
 	}
 
-	user, err := github.FindUser(*githubUsername)
-
-	if err != nil {
-		fmt.Println(err)
+	if *runWeb {
+		web.Run()
 	} else {
-		fmt.Println(user.Name)
+		cli.Run(*githubUsername)
 	}
 }
