@@ -8,13 +8,29 @@ import (
 	"github.com/mstarkman/ghsummary.go/github"
 )
 
+var githubUsername = flag.String("user", defaultUserName, "the GitHub username to generate the summary")
+var showHelp = flag.Bool("help", false, "shows the help")
+
 const defaultUserName = ""
 
-func main() {
-	githubUsername := flag.String("user", defaultUserName, "the GitHub username to generate the summary")
+func parseCli() bool {
 	flag.Parse()
 
+	if *showHelp {
+		return false
+	}
+
 	if *githubUsername == defaultUserName {
+		return false
+	}
+
+	return true
+}
+
+func main() {
+	ok := parseCli()
+
+	if !ok {
 		fmt.Println("")
 		flag.Usage()
 		os.Exit(0)
