@@ -16,5 +16,8 @@ func Run(githubUsername *string) {
 		fmt.Println(user.Name)
 		fmt.Println(user.Login)
 		fmt.Println(user.PublicRepoCount)
+		for _, r := range *user.Repos {
+			fmt.Println(r.Name)
+		}
 	}
 }

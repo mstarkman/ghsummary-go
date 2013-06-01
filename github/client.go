@@ -21,13 +21,14 @@ func NewClient() *Client {
 	c.Users = &UsersService{
 		client:   c,
 		basePath: "users",
+		repos:    &ReposService{client: c},
 	}
 
 	return c
 }
 
-func (c *Client) Get(path string, v interface{}) (*http.Response, error) {
-	resp, err := c.client.Get(c.formatUrl(path))
+func (c *Client) GetUrl(url string, v interface{}) (*http.Response, error) {
+	resp, err := c.client.Get(url)
 	defer resp.Body.Close()
 
 	if err != nil {
@@ -37,6 +38,10 @@ func (c *Client) Get(path string, v interface{}) (*http.Response, error) {
 	err = json.NewDecoder(resp.Body).Decode(v)
 
 	return resp, err
+}
+
+func (c *Client) GetPath(path string, v interface{}) (*http.Response, error) {
+	return c.GetUrl(c.formatUrl(path), v)
 }
 
 func (c *Client) formatUrl(path string) string {
