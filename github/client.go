@@ -1,6 +1,7 @@
 package github
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -25,8 +26,17 @@ func NewClient() *Client {
 	return c
 }
 
-func (c *Client) Get(path string) (*http.Response, error) {
-	return c.client.Get(c.formatUrl(path))
+func (c *Client) Get(path string, v interface{}) (*http.Response, error) {
+	resp, err := c.client.Get(c.formatUrl(path))
+	defer resp.Body.Close()
+
+	if err != nil {
+		return resp, err
+	}
+
+	err = json.NewDecoder(resp.Body).Decode(v)
+
+	return resp, err
 }
 
 func (c *Client) formatUrl(path string) string {
