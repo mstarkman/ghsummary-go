@@ -3,7 +3,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/mstarkman/ghsummary.go/github"
+	"github.com/mstarkman/ghsummary-go/github"
 )
 
 func Run(githubUsername *string) {

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mstarkman/ghsummary.go/cli"
-	"github.com/mstarkman/ghsummary.go/web"
+	"github.com/mstarkman/ghsummary-go/cli"
+	"github.com/mstarkman/ghsummary-go/web"
 )
 
 var githubUsername = flag.String("user", defaultUserName, "the GitHub username to generate the summary")
