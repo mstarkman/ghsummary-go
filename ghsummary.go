@@ -41,6 +41,6 @@ func main() {
 	if *runWeb {
 		web.Run()
 	} else {
-		cli.Run(*githubUsername)
+		cli.Run(githubUsername)
 	}
 }

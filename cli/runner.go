@@ -6,9 +6,10 @@ import (
 	"github.com/mstarkman/ghsummary.go/github"
 )
 
-func Run(githubUsername string) {
-	user, err := github.FindUser(githubUsername)
+func Run(githubUsername *string) {
+	githubClient := github.NewClient()
 
+	user, err := githubClient.Users.Get(githubUsername)
 	if err != nil {
 		fmt.Println(err)
 	} else {
