@@ -14,5 +14,7 @@ func Run(githubUsername *string) {
 		fmt.Println(err)
 	} else {
 		fmt.Println(user.Name)
+		fmt.Println(user.Login)
+		fmt.Println(user.PublicRepoCount)
 	}
 }

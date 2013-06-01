@@ -6,7 +6,9 @@ import (
 )
 
 type User struct {
-	Name string `json:"name,omitempty"`
+	Name            string `json:"name,omitempty"`
+	Login           string `json:"login,omitempty"`
+	PublicRepoCount int    `json:"public_repos,omitempty"`
 }
 
 type UsersService struct {
