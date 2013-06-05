@@ -6,13 +6,12 @@ type Repo struct {
 }
 
 type ReposService struct {
-	client *Client
+	client    *Client
+	languages *LanguagesService
 }
 
-func (s *ReposService) List(url string) (*[]Repo, error) {
-	repos := new([]Repo)
-
-	_, err := s.client.GetUrl(url, repos)
-
-	return repos, err
+func (s *ReposService) List(url string) (repos *[]Repo, err error) {
+	repos = new([]Repo)
+	_, err = s.client.GetUrl(url, repos)
+	return
 }

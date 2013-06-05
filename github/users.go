@@ -35,5 +35,8 @@ func (s *UsersService) Get(username *string) (user *User, err error) {
 
 func (s *UsersService) getReposDetails(u *User) (repos *[]Repo, err error) {
 	repos, err = s.repos.List(u.ReposUrl)
+	for _, repo := range *repos {
+		_, err = s.repos.languages.Get(repo.LanguagesUrl)
+	}
 	return
 }
