@@ -13,6 +13,7 @@ func Run(githubUsername *string) {
 	if err != nil {
 		fmt.Println(err)
 	} else {
+		fmt.Println(fmt.Sprintf("Load time: %f secs.", user.LoadTime))
 		fmt.Println(user.Name)
 		fmt.Println(user.Login)
 		fmt.Println(user.PublicRepoCount)

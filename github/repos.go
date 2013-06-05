@@ -1,7 +1,8 @@
 package github
 
 type Repo struct {
-	Name string `json:"name,omitempty"`
+	Name         string `json:"name,omitempty"`
+	LanguagesUrl string `json:"languages_url,omitempty"`
 }
 
 type ReposService struct {

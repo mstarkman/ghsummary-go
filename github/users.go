@@ -2,9 +2,11 @@ package github
 
 import (
 	"fmt"
+	"time"
 )
 
 type User struct {
+	LoadTime        float64
 	Name            string `json:"name,omitempty"`
 	Login           string `json:"login,omitempty"`
 	PublicRepoCount int    `json:"public_repos,omitempty"`
@@ -18,12 +20,20 @@ type UsersService struct {
 	repos    *ReposService
 }
 
-func (s *UsersService) Get(username *string) (*User, error) {
+func (s *UsersService) Get(username *string) (user *User, err error) {
+	startTime := time.Now()
 	path := fmt.Sprintf("%s/%s", s.basePath, *username)
-	user := new(User)
+	user = new(User)
 
-	_, err := s.client.GetPath(path, user)
-	user.Repos, err = s.repos.List(user.ReposUrl)
+	_, err = s.client.GetPath(path, user)
+	user.Repos, err = s.getReposDetails(user)
 
-	return user, err
+	user.LoadTime = time.Since(startTime).Seconds()
+
+	return
+}
+
+func (s *UsersService) getReposDetails(u *User) (repos *[]Repo, err error) {
+	repos, err = s.repos.List(u.ReposUrl)
+	return
 }
